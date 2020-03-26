@@ -1,0 +1,51 @@
+.pokemons {
+  max-width: 1170px;
+  margin: 0 auto;
+  min-height: 100vh;
+
+  &__button {
+    width: 100%;
+  }
+}
+
+.pokemon-cards {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+  &__item {
+    flex-basis: 25%;
+    padding: 1rem;
+  }
+}
+
+.pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  list-style: none;
+}
+
+@media screen and (max-width: 1170px) {
+  .pokemons {
+    width: 768px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pokemons {
+    width: 320px;
+  }
+}
+
+@media screen and (max-width: 1170px) {
+  .pokemon-cards__item {
+    flex-basis: 50%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pokemon-cards__item {
+    flex-basis: 100%;
+  }
+}

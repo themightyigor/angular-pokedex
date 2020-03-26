@@ -2,11 +2,11 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { Pokemon } from '../../models/Pokemon';
 
 @Component({
-  selector: 'app-pokemon-card',
-  templateUrl: './pokemon-card.component.html',
-  styleUrls: ['./pokemon-card.component.scss'],
+  selector: 'app-pokemon-list',
+  templateUrl: './pokemon-list.component.html',
+  styleUrls: ['./pokemon-list.component.scss'],
 })
-export class PokemonCardComponent {
+export class PokemonListComponent {
   @Input() pokemon: Pokemon;
   @Input() caught: boolean;
   @Output() catchPokemon: EventEmitter<Pokemon> = new EventEmitter();

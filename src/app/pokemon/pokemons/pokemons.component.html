@@ -1,2 +1,23 @@
-<p>pokemons works!</p>
-<app-pokemon-card></app-pokemon-card>
+<main class="pokemons">
+  <button class="button pokemons__button" (click)="showList()">Change view</button>
+  <ul class="pokemon-cards" *ngIf="!isShowList">
+    <app-pokemon-card
+      class="pokemon-cards__item"
+      *ngFor="let pokemon of pokemons"
+      [pokemon]="pokemon"
+      [caught]="isCaught(pokemon.id)"
+      (catchPokemon)="catchPokemon($event)"
+      (releasePokemon)="releasePokemon($event)"
+    ></app-pokemon-card>
+  </ul>
+
+  <ul class="pokemon-list" *ngIf="isShowList">
+    <app-pokemon-list
+      *ngFor="let pokemon of pokemons"
+      [pokemon]="pokemon"
+      [caught]="isCaught(pokemon.id)"
+      (catchPokemon)="catchPokemon($event)"
+      (releasePokemon)="releasePokemon($event)"
+    ></app-pokemon-list>
+  </ul>
+</main>
