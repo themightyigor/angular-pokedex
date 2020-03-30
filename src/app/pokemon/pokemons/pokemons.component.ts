@@ -8,8 +8,9 @@ import { POKEMONS } from '../../mock-pokemons';
   styleUrls: ['./pokemons.component.scss'],
 })
 export class PokemonsComponent {
-  isShowList = false;
-  pokemons = POKEMONS;
+  public isShowList = false;
+  public pokemons = POKEMONS;
+  
   private caughtIds: Array<number> = [];
 
   constructor() {}

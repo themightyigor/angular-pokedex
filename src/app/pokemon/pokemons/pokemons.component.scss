@@ -1,8 +1,4 @@
 .pokemons {
-  max-width: 1170px;
-  margin: 0 auto;
-  min-height: 100vh;
-
   &__button {
     width: 100%;
   }
@@ -24,18 +20,6 @@
   flex-wrap: wrap;
   flex-direction: column;
   list-style: none;
-}
-
-@media screen and (max-width: 1170px) {
-  .pokemons {
-    width: 768px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .pokemons {
-    width: 320px;
-  }
 }
 
 @media screen and (max-width: 1170px) {

@@ -1,4 +1,4 @@
-<main class="pokemons">
+<section class="pokemons">
   <button class="button pokemons__button" (click)="showList()">Change view</button>
   <ul class="pokemon-cards" *ngIf="!isShowList">
     <app-pokemon-card
@@ -20,4 +20,4 @@
       (releasePokemon)="releasePokemon($event)"
     ></app-pokemon-list>
   </ul>
-</main>
+</section>
