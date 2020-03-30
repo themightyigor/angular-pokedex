@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { HighlightDirective } from '../shared/directives/highlight/highlight.directive';
 import { PokemonsComponent } from './pokemons/pokemons.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
-
+import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 
 @NgModule({
-  declarations: [PokemonsComponent, PokemonCardComponent],
-  imports: [
-    CommonModule
-  ],
-  exports: [PokemonsComponent]
+  declarations: [HighlightDirective, PokemonsComponent, PokemonCardComponent, PokemonListComponent],
+  imports: [CommonModule],
+  exports: [PokemonsComponent],
 })
-export class PokemonModule { }
+export class PokemonModule {}
