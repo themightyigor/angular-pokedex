@@ -1,0 +1,24 @@
+.pokemon {
+  display: flex;
+
+  &__image {
+    display: block;
+    flex-basis: 40%;
+  }
+
+  &__details {
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__name {
+    margin-bottom: 1rem;
+  }
+
+  &__info {
+    margin-bottom: 2rem;
+  }
+}

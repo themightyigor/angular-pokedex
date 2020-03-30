@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-pokemon-details',
   templateUrl: './pokemon-details.component.html',
-  styleUrls: ['./pokemon-details.component.scss']
+  styleUrls: ['./pokemon-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PokemonDetailsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class PokemonDetailsComponent {}
