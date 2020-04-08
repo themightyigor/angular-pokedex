@@ -1,0 +1,6 @@
+<button class="button button--primary" *ngIf="isCaught" (click)="releasePokemon()">
+  Release
+</button>
+<button class="button button--primary" *ngIf="!isCaught" (click)="catchPokemon()">
+  Catch
+</button>

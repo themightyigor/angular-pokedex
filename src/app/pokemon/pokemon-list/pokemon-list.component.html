@@ -6,7 +6,5 @@
       <p class="item__description">#{{ pokemon.id }}</p>
     </div>
   </div>
-  <button class="button button--primary" (click)="caught ? onReleasePokemon(pokemon) : onCatchPokemon(pokemon)">
-    {{ caught ? 'Release' : 'Catch' }}
-  </button>
+  <app-pokemon-button [pokemon]="pokemon"></app-pokemon-button>
 </li>
