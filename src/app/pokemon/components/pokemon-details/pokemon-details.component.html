@@ -1,0 +1,20 @@
+<div class="pokemon">
+  <div class="pokemon__image-block">
+    <img src="/assets/images/{{ pokemon.id }}.png" class="pokemon__image" />
+  </div>
+  <div class="pokemon__details">
+    <h2 class="pokemon__name">{{ pokemon.name }}</h2>
+    <div class="pokemon__info">
+      <p>ID: {{ pokemon.id }}</p>
+      <p>Damage: {{ pokemon.damage }}</p>
+    </div>
+    <div class="pokemon__buttons">
+      <button class="button button--primary" (click)="togglePokemon()">
+        {{ pokemon.isCaught ? 'Release' : 'Catch' }}
+      </button>
+      <button class="button button--secondary">
+        Edit
+      </button>
+    </div>
+  </div>
+</div>

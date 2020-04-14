@@ -1,0 +1,10 @@
+<form class="search" (ngSubmit)="onSubmit()">
+  <input
+    type="text"
+    name="pokemonName"
+    class="search__input"
+    placeholder="Which pokemon do you want to find?"
+    [(ngModel)]="pokemonName"
+  />
+  <button type="submit" class="button button--primary">Search</button>
+</form>

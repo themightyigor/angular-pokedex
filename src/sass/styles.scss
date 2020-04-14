@@ -34,4 +34,11 @@ a {
     padding: 0.45rem 1.25rem;
     font-size: 0.9rem;
   }
+
+  &--secondary {
+    @extend .button--primary;
+    background: $color-secondary;
+    border: 2px solid $color-secondary;
+    margin-left: 1rem;
+  }
 }
