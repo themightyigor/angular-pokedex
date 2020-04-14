@@ -4,9 +4,14 @@
       <h2 class="card__title">{{ pokemon.name | titlecase }}</h2>
       <p class="card__id">{{ pokemon.damage }}%</p>
     </div>
+  </div>
+  <img src="/assets/images/{{ pokemon.id }}.png" class="card__image" routerLink="/pokemon/{{ pokemon.id }}" />
+  <div class="card__actions">
     <button class="button button--primary" (click)="onTogglePokemon(pokemon)">
-      {{ isCaught ? 'Release' : 'Catch' }}
+      {{ pokemon.isCaught ? 'Release' : 'Catch' }}
+    </button>
+    <button class="button button--secondary">
+      Edit
     </button>
   </div>
-  <img src="/assets/images/{{ pokemon.id }}.png" class="card__image" />
 </li>
