@@ -1,4 +1,12 @@
-import { Component, Input, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  EventEmitter,
+  Output,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Pokemon } from '../../models/Pokemon';
 
 @Component({
@@ -7,10 +15,21 @@ import { Pokemon } from '../../models/Pokemon';
   styleUrls: ['./pokemon-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent implements OnChanges {
   @Input() pokemon: Pokemon;
+  @Input() caughtIds: Array<number>;
+  @Output() togglePokemon: EventEmitter<Pokemon> = new EventEmitter();
 
-  constructor() {}
+  isCaught: boolean;
 
-  ngOnInit() {}
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.pokemon) {
+      this.isCaught = this.caughtIds.includes(this.pokemon.id);
+    }
+  }
+
+  public onTogglePokemon(pokemon: Pokemon): void {
+    this.togglePokemon.emit(pokemon);
+    this.isCaught = !this.isCaught;
+  }
 }

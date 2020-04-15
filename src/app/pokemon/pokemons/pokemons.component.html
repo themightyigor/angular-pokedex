@@ -6,10 +6,17 @@
       class="pokemon-cards__item"
       *ngFor="let pokemon of pokemons"
       [pokemon]="pokemon"
+      [caughtIds]="caughtIds"
+      (togglePokemon)="togglePokemon($event)"
     ></app-pokemon-card>
   </ul>
 
   <ul class="pokemon-list" *ngIf="isShowList">
-    <app-pokemon-list *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-pokemon-list>
+    <app-pokemon-list
+      *ngFor="let pokemon of pokemons"
+      [pokemon]="pokemon"
+      [caughtIds]="caughtIds"
+      (togglePokemon)="togglePokemon($event)"
+    ></app-pokemon-list>
   </ul>
 </section>
