@@ -1,13 +1,13 @@
 <section class="pokemons">
   <button class="button pokemons__button" (click)="showList()">Change view</button>
+  <app-search-bar class="pokemons__search"></app-search-bar>
   <ul class="pokemon-cards" *ngIf="!isShowList">
     <app-pokemon-card
       class="pokemon-cards__item"
       *ngFor="let pokemon of pokemons"
       [pokemon]="pokemon"
       [caughtIds]="caughtIds"
-      (catchPokemon)="catchPokemon($event)"
-      (releasePokemon)="releasePokemon($event)"
+      (togglePokemon)="togglePokemon($event)"
     ></app-pokemon-card>
   </ul>
 
@@ -16,8 +16,7 @@
       *ngFor="let pokemon of pokemons"
       [pokemon]="pokemon"
       [caughtIds]="caughtIds"
-      (catchPokemon)="catchPokemon($event)"
-      (releasePokemon)="releasePokemon($event)"
+      (togglePokemon)="togglePokemon($event)"
     ></app-pokemon-list>
   </ul>
 </section>

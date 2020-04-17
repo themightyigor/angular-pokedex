@@ -4,8 +4,8 @@
       <h2 class="card__title">{{ pokemon.name | titlecase }}</h2>
       <p class="card__id">{{ pokemon.damage }}%</p>
     </div>
-    <button class="button button--primary" (click)="caught ? onReleasePokemon(pokemon) : onCatchPokemon(pokemon)">
-      {{ caught ? 'Release' : 'Catch' }}
+    <button class="button button--primary" (click)="onTogglePokemon(pokemon)">
+      {{ isCaught ? 'Release' : 'Catch' }}
     </button>
   </div>
   <img src="/assets/images/{{ pokemon.id }}.png" class="card__image" />

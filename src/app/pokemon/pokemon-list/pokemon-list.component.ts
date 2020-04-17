@@ -1,9 +1,9 @@
 import {
   Component,
   Input,
+  ChangeDetectionStrategy,
   EventEmitter,
   Output,
-  ChangeDetectionStrategy,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
@@ -18,24 +18,18 @@ import { Pokemon } from '../../models/Pokemon';
 export class PokemonListComponent implements OnChanges {
   @Input() pokemon: Pokemon;
   @Input() caughtIds: Array<number>;
-  @Output() catchPokemon: EventEmitter<Pokemon> = new EventEmitter();
-  @Output() releasePokemon: EventEmitter<Pokemon> = new EventEmitter();
+  @Output() togglePokemon: EventEmitter<Pokemon> = new EventEmitter();
 
-  caught: boolean;
-
-  constructor() {}
+  isCaught: boolean;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.caughtIds) {
-      this.caught = this.caughtIds.includes(this.pokemon.id);
+    if (changes.pokemon) {
+      this.isCaught = this.caughtIds.includes(this.pokemon.id);
     }
   }
 
-  public onCatchPokemon(pokemon: Pokemon): void {
-    this.catchPokemon.emit(pokemon);
-  }
-
-  public onReleasePokemon(pokemon: Pokemon): void {
-    this.releasePokemon.emit(pokemon);
+  public onTogglePokemon(pokemon: Pokemon): void {
+    this.togglePokemon.emit(pokemon);
+    this.isCaught = !this.isCaught;
   }
 }

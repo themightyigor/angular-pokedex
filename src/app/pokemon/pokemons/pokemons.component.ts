@@ -1,31 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../../models/Pokemon';
-import { POKEMONS } from '../../mock-pokemons';
+import { PokemonService } from '../services/pokemon.service';
 
 @Component({
   selector: 'app-pokemons',
   templateUrl: './pokemons.component.html',
   styleUrls: ['./pokemons.component.scss'],
 })
-export class PokemonsComponent {
+export class PokemonsComponent implements OnInit {
   public isShowList = false;
-  public pokemons = POKEMONS;
-
+  public pokemons: Pokemon[];
   public caughtIds: Array<number> = [];
 
-  constructor() {}
+  constructor(private pokemonService: PokemonService) {}
+
+  ngOnInit() {
+    this.getPokemons();
+  }
 
   public showList(): void {
     this.isShowList = !this.isShowList;
   }
 
-  public catchPokemon(pokemon: Pokemon): void {
+  private getPokemons() {
+    this.pokemonService.getPokemons().subscribe((pokemons) => (this.pokemons = pokemons));
+  }
+
+  public togglePokemon(pokemon: Pokemon) {
+    if (this.isCaught(pokemon.id)) {
+      this.caughtIds = this.caughtIds.filter((id) => id !== pokemon.id);
+      console.log(`${pokemon.name} has been released`);
+      return;
+    }
     this.caughtIds = [...this.caughtIds, pokemon.id];
     console.log(`${pokemon.name} has been caught`);
   }
 
-  public releasePokemon(pokemon: Pokemon): void {
-    this.caughtIds = this.caughtIds.filter((id) => id !== pokemon.id);
-    console.log(`${pokemon.name} has been released`);
+  private isCaught(id: number): boolean {
+    return this.caughtIds.includes(id);
   }
 }

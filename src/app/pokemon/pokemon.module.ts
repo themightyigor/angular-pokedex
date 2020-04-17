@@ -5,9 +5,10 @@ import { HighlightDirective } from '../shared/directives/highlight/highlight.dir
 import { PokemonsComponent } from './pokemons/pokemons.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
-  declarations: [HighlightDirective, PokemonsComponent, PokemonCardComponent, PokemonListComponent],
+  declarations: [HighlightDirective, PokemonsComponent, PokemonCardComponent, PokemonListComponent, SearchBarComponent],
   imports: [CommonModule],
   exports: [PokemonsComponent],
 })
