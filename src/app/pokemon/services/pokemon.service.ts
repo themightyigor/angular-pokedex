@@ -25,4 +25,8 @@ export class PokemonService {
   getPokemonById(id: number): Observable<Pokemon> {
     return of(this.pokemons).pipe(map((pokemons) => pokemons.find((pokemon) => pokemon.id === id)));
   }
+
+  updatePokemon(id: number, updatedPokemon: Pokemon): void {
+    this.pokemons = this.pokemons.map((pokemon) => (pokemon.id === id ? { ...pokemon, ...updatedPokemon } : pokemon));
+  }
 }

@@ -10,7 +10,7 @@
     <button class="button button--primary" (click)="onTogglePokemon(pokemon)">
       {{ pokemon.isCaught ? 'Release' : 'Catch' }}
     </button>
-    <button class="button button--secondary">
+    <button class="button button--secondary" [routerLink]="['/edit', pokemon.id]">
       Edit
     </button>
   </div>

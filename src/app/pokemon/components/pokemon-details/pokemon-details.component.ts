@@ -11,7 +11,7 @@ import { PokemonService } from '../../services/pokemon.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PokemonDetailsComponent implements OnInit {
-  public pokemon;
+  public pokemon: Pokemon;
 
   constructor(private pokemonService: PokemonService, private route: ActivatedRoute) {}
 
@@ -28,8 +28,8 @@ export class PokemonDetailsComponent implements OnInit {
     });
   }
 
-  public togglePokemon(pokemon: Pokemon): void {
+  public togglePokemon(): void {
     this.pokemon.isCaught = !this.pokemon.isCaught;
-    console.log(`${pokemon.name} has been ${this.pokemon.isCaught ? 'caught' : 'released'}`);
+    console.log(`${this.pokemon.name} has been ${this.pokemon.isCaught ? 'caught' : 'released'}`);
   }
 }
