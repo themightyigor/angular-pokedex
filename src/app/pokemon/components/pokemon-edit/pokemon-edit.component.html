@@ -1,9 +1,9 @@
-<div class="pokemon-edit">
+<div class="pokemon-edit" *ngIf="pokemon$ | async as pokemon">
   <div class="pokemon-edit__image-block">
-    <img src="/assets/images/{{ pokemonId }}.png" class="pokemon-edit__image" />
+    <img src="/assets/images/{{ pokemon.id }}.png" class="pokemon-edit__image" />
   </div>
   <div class="pokemon-edit__form">
-    <form [formGroup]="editPokemonForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="editPokemonForm" (ngSubmit)="onSubmit(pokemon.id)">
       <label for="name">Name: </label>
       <input type="text" id="name" formControlName="name" />
       <br /><br />
@@ -16,7 +16,7 @@
       <input type="date" id="createdAt" formControlName="createdAt" />
       <br /><br />
 
-      <button type="button" (click)="goToPokemonPage()">Cancel</button>
+      <button type="button" (click)="onCancel(pokemon.id)">Cancel</button>
       <button type="submit" [disabled]="!editPokemonForm.valid">Submit</button>
     </form>
   </div>

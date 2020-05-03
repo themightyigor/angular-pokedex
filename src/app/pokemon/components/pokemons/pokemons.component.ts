@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { Pokemon } from '../../../models/pokemon.model';
-import { PokemonService } from '../../services/pokemon.service';
+import { searchPokemon, togglePokemon } from '../../../store/pokemon/pokemon.actions';
+import { selectAllPokemons, selectSearchedPokemons } from '../../../store/pokemon/pokemon.selectors';
+import { State } from '../../../store/';
 
 @Component({
   selector: 'app-pokemons',
@@ -10,19 +14,23 @@ import { PokemonService } from '../../services/pokemon.service';
   styleUrls: ['./pokemons.component.scss'],
 })
 export class PokemonsComponent implements OnInit {
+  pokemons$: Observable<Pokemon[]>;
   public isShowList = false;
-  public pokemons: Pokemon[];
+  public isSearchMode: boolean;
 
-  constructor(private pokemonService: PokemonService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<State>) {}
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((queryParams) => {
-      const pokemonName = queryParams.get('pokemon');
-      if (pokemonName) {
-        this.pokemons = this.pokemonService.filter(pokemonName);
+      const term = queryParams.get('pokemon');
+      if (term) {
+        this.store.dispatch(searchPokemon({ term }));
+        this.pokemons$ = this.store.select(selectSearchedPokemons);
+        this.isSearchMode = true;
         return;
       }
-      this.getPokemons();
+      this.isSearchMode = false;
+      this.pokemons$ = this.store.select(selectAllPokemons);
     });
   }
 
@@ -30,13 +38,10 @@ export class PokemonsComponent implements OnInit {
     this.isShowList = !this.isShowList;
   }
 
-  private getPokemons() {
-    this.pokemonService.getPokemons().subscribe((pokemons) => (this.pokemons = pokemons));
-  }
-
   public togglePokemon(pokemon: Pokemon): void {
-    pokemon.isCaught = !pokemon.isCaught;
-    console.log(`${pokemon.name} has been ${pokemon.isCaught ? 'caught' : 'released'}`);
+    const { id, name, isCaught } = pokemon;
+    this.store.dispatch(togglePokemon({ id }));
+    console.log(`${name} has been ${isCaught ? 'released' : 'caught'}`);
   }
 
   public search(term: string): void {

@@ -1,4 +1,4 @@
-<div class="pokemon">
+<div class="pokemon" *ngIf="pokemon$ | async as pokemon">
   <div class="pokemon__image-block">
     <img src="/assets/images/{{ pokemon.id }}.png" class="pokemon__image" />
   </div>
@@ -10,7 +10,7 @@
       <p>Created At: {{ pokemon.createdAt | date: 'shortDate' }}</p>
     </div>
     <div class="pokemon__buttons">
-      <button class="button button--primary" (click)="togglePokemon()">
+      <button class="button button--primary" (click)="togglePokemon(pokemon)">
         {{ pokemon.isCaught ? 'Release' : 'Catch' }}
       </button>
       <button class="button button--secondary" [routerLink]="['/edit', pokemon.id]">
