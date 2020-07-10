@@ -1,0 +1,23 @@
+<div class="pokemon-edit">
+  <div class="pokemon-edit__image-block">
+    <img src="/assets/images/{{ pokemonId }}.png" class="pokemon-edit__image" />
+  </div>
+  <div class="pokemon-edit__form">
+    <form [formGroup]="editPokemonForm" (ngSubmit)="onSubmit()">
+      <label for="name">Name: </label>
+      <input type="text" id="name" formControlName="name" />
+      <br /><br />
+
+      <label for="damage">Damage: </label>
+      <input type="text" id="damage" formControlName="damage" />
+      <br /><br />
+
+      <label for="createdAt">Created At: </label>
+      <input type="date" id="createdAt" formControlName="createdAt" />
+      <br /><br />
+
+      <button type="button" (click)="goToPokemonPage()">Cancel</button>
+      <button type="submit" [disabled]="!editPokemonForm.valid">Submit</button>
+    </form>
+  </div>
+</div>

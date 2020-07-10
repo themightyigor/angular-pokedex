@@ -1,5 +1,6 @@
 @import 'colors';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import '~angular-notifier/styles.scss';
 
 * {
   box-sizing: border-box;
@@ -12,7 +13,6 @@ body {
 }
 
 h2,
-p,
 a {
   color: $color-dark;
 }
@@ -21,6 +21,8 @@ a {
   background: $light-color;
   border-radius: 4px;
   color: $color-grey;
+  text-decoration: none;
+  cursor: default;
   font-weight: 600;
   padding: 1rem 2rem;
   text-align: center;

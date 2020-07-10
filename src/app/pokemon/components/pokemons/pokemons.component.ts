@@ -36,10 +36,10 @@ export class PokemonsComponent implements OnInit {
 
   public togglePokemon(pokemon: Pokemon): void {
     pokemon.isCaught = !pokemon.isCaught;
-    console.log(`${pokemon.name} has been ${pokemon.isCaught ? 'caught' : 'released'})`);
+    console.log(`${pokemon.name} has been ${pokemon.isCaught ? 'caught' : 'released'}`);
   }
 
   public search(term: string): void {
-    this.router.navigate([], { queryParams: term ? { pokemon: term } : {} });
+    this.router.navigate([], { queryParams: term ? { pokemon: term } : null });
   }
 }
