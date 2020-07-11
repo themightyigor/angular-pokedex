@@ -1,0 +1,20 @@
+<section class="pokemons">
+  <button class="button pokemons__button" (click)="showList()">Change view</button>
+  <app-search-bar class="pokemons__search" (search)="search($event)"></app-search-bar>
+  <ul class="pokemon-cards" *ngIf="!isShowList">
+    <app-pokemon-card
+      class="pokemon-cards__item"
+      *ngFor="let pokemon of pokemons$ | async"
+      [pokemon]="pokemon"
+      (togglePokemon)="togglePokemon($event)"
+    ></app-pokemon-card>
+  </ul>
+
+  <ul class="pokemon-list" *ngIf="isShowList">
+    <app-pokemon-list
+      *ngFor="let pokemon of pokemons$ | async"
+      [pokemon]="pokemon"
+      (togglePokemon)="togglePokemon($event)"
+    ></app-pokemon-list>
+  </ul>
+</section>

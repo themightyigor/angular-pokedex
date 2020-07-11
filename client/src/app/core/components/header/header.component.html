@@ -1,0 +1,17 @@
+<header class="header">
+  <div class="header__container">
+    <nav class="nav">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a class="nav__link" routerLink="/">Home</a>
+        </li>
+        <li class="nav__item" *ngIf="authService.token.length === 0">
+          <a class="nav__link" href="/login">Login</a>
+        </li>
+        <li class="nav__item" *ngIf="authService.token.length > 0">
+          <a class="nav__link" href="/login" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
