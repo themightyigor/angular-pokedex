@@ -1,0 +1,48 @@
+.item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+
+  &__meta {
+    display: flex;
+    align-items: center;
+  }
+
+  &__image {
+    display: block;
+    width: 60px;
+  }
+
+  &__content {
+    margin-left: 1rem;
+  }
+
+  &__name {
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  &__description {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .item {
+    padding: 1rem 0.5rem;
+
+    &__content {
+      margin-left: 0;
+    }
+
+    &__image {
+      display: none;
+    }
+  }
+}

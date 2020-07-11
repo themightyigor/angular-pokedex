@@ -1,0 +1,17 @@
+<li class="card" [appHighlight]="pokemon.damage">
+  <div class="card__header">
+    <div class="card__content">
+      <h2 class="card__title" [routerLink]="['/pokemons', pokemon._id]">{{ pokemon.name | titlecase }}</h2>
+      <p class="card__id">{{ pokemon.damage }}%</p>
+    </div>
+  </div>
+  <img src="/assets/images/{{ pokemon._id }}.png" class="card__image" />
+  <div class="card__actions">
+    <button class="button button--primary" (click)="onTogglePokemon(pokemon)">
+      {{ pokemon.isCaught ? 'Release' : 'Catch' }}
+    </button>
+    <button class="button button--secondary" [routerLink]="['/pokemons/edit', pokemon._id]">
+      Edit
+    </button>
+  </div>
+</li>
