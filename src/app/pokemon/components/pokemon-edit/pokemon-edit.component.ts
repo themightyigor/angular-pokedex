@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import { PokemonService } from '../../services/pokemon.service';
-import { NotifierService } from 'angular-notifier';
+import { Pokemon } from '../../../models/pokemon.model';
+import { getPokemon, updatePokemon } from '../../../store/pokemon/pokemon.actions';
+import { selectPokemon } from '../../../store/pokemon/pokemon.selectors';
+import { State } from '../../../store';
 
 @Component({
   selector: 'app-pokemon-edit',
@@ -12,16 +16,17 @@ import { NotifierService } from 'angular-notifier';
   styleUrls: ['./pokemon-edit.component.scss'],
 })
 export class PokemonEditComponent implements OnInit {
-  public pokemonId: number;
+  public pokemon$: Observable<Pokemon>;
   public editPokemonForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private pokemonService: PokemonService,
-    private notifierService: NotifierService
-  ) {}
+    private store: Store<State>
+  ) {
+    this.pokemon$ = this.store.pipe(select(selectPokemon));
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -31,35 +36,35 @@ export class PokemonEditComponent implements OnInit {
     });
   }
 
-  initForm() {
+  initForm(): void {
     this.editPokemonForm = this.fb.group({
-      name: ['', [Validators.required]],
-      damage: ['', [Validators.required, Validators.pattern(/^[0-9]\d*$/), Validators.min(1), Validators.max(100)]],
-      createdAt: ['', [Validators.required]],
+      name: [null, [Validators.required]],
+      damage: [null, [Validators.required, Validators.pattern(/^[0-9]\d*$/), Validators.min(1), Validators.max(100)]],
+      createdAt: [null, [Validators.required]],
     });
   }
 
   getPokemon(id: number): void {
-    this.pokemonService.getPokemonById(id).subscribe((pokemon) => {
-      this.pokemonId = pokemon.id;
+    this.store.dispatch(getPokemon({ id }));
+    this.pokemon$.subscribe((pokemon) => {
+      const { name, damage, createdAt } = pokemon;
       this.editPokemonForm.setValue({
-        name: pokemon.name,
-        damage: pokemon.damage,
-        createdAt: formatDate(pokemon.createdAt, 'yyyy-MM-dd', 'en'),
+        name,
+        damage,
+        createdAt: formatDate(createdAt, 'yyyy-MM-dd', 'en'),
       });
     });
   }
 
-  onSubmit(): void {
-    const createdAt = Date.parse(this.editPokemonForm.value.createdAt);
-    const updatedPokemon = { ...this.editPokemonForm.value, createdAt };
-    this.pokemonService.updatePokemon(this.pokemonId, updatedPokemon);
-    this.notifierService.notify('success', 'Success!');
-    this.goToPokemonPage();
+  onSubmit(id: number): void {
+    const { value } = this.editPokemonForm;
+    const createdAt = new Date(value.createdAt).toISOString();
+    const updatedPokemon = { ...value, createdAt };
+    this.store.dispatch(updatePokemon({ id, updatedPokemon }));
   }
 
-  goToPokemonPage(): void {
-    this.router.navigate(['pokemon', this.pokemonId]);
+  onCancel(id: number): void {
+    this.router.navigate(['pokemon', id]);
   }
 
   canDeactivate(): boolean {

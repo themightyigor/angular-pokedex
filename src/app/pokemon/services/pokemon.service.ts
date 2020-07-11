@@ -14,8 +14,10 @@ export class PokemonService {
 
   constructor() {}
 
-  filter(term: string): Pokemon[] {
-    return this.pokemons.filter((pokemon) => pokemon.name.toLowerCase().includes(term.toLowerCase()));
+  filter(term: string): Observable<Pokemon[]> {
+    return of(this.pokemons).pipe(
+      map((pokemons) => pokemons.filter((pokemon) => pokemon.name.toLowerCase().includes(term.toLowerCase())))
+    );
   }
 
   getPokemons(): Observable<Pokemon[]> {
@@ -24,9 +26,5 @@ export class PokemonService {
 
   getPokemonById(id: number): Observable<Pokemon> {
     return of(this.pokemons).pipe(map((pokemons) => pokemons.find((pokemon) => pokemon.id === id)));
-  }
-
-  updatePokemon(id: number, updatedPokemon: Pokemon): void {
-    this.pokemons = this.pokemons.map((pokemon) => (pokemon.id === id ? { ...pokemon, ...updatedPokemon } : pokemon));
   }
 }

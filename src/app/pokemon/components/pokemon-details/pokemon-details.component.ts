@@ -1,8 +1,12 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { Pokemon } from '../../../models/pokemon.model';
-import { PokemonService } from '../../services/pokemon.service';
+import { togglePokemon, getPokemon } from '../../../store/pokemon/pokemon.actions';
+import { selectPokemon } from '../../../store/pokemon/pokemon.selectors';
+import { State } from '../../../store/index';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -11,25 +15,22 @@ import { PokemonService } from '../../services/pokemon.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PokemonDetailsComponent implements OnInit {
-  public pokemon: Pokemon;
+  public pokemon$: Observable<Pokemon>;
 
-  constructor(private pokemonService: PokemonService, private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private store: Store<State>) {
+    this.pokemon$ = store.pipe(select(selectPokemon));
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = +params.get('id');
-      this.getPokemon(id);
+      this.store.dispatch(getPokemon({ id }));
     });
   }
 
-  getPokemon(id: number): void {
-    this.pokemonService.getPokemonById(id).subscribe((pokemon) => {
-      this.pokemon = pokemon;
-    });
-  }
-
-  public togglePokemon(): void {
-    this.pokemon.isCaught = !this.pokemon.isCaught;
-    console.log(`${this.pokemon.name} has been ${this.pokemon.isCaught ? 'caught' : 'released'}`);
+  public togglePokemon(pokemon: Pokemon): void {
+    const { id, name, isCaught } = pokemon;
+    this.store.dispatch(togglePokemon({ id }));
+    console.log(`${name} has been ${isCaught ? 'released' : 'caught'}`);
   }
 }
