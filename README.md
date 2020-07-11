@@ -1,5 +1,5 @@
 ## Getting Started
 
 - `git clone <url>`
-- `npm install`
-- `npm run server`
+- `cd client && npm i`
+- `cd client && npm i`
