@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Store, select } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-import { getPokemon, updatePokemon } from 'src/app/store/pokemon/pokemon.actions';
-import { selectPokemon } from 'src/app/store/pokemon/pokemon.selectors';
+import * as PokemonActions from 'src/app/store/pokemon/pokemon.actions';
+import * as PokemonSelectors from 'src/app/store/pokemon/pokemon.selectors';
 
 @Component({
   selector: 'app-pokemon-edit',
@@ -15,7 +15,7 @@ import { selectPokemon } from 'src/app/store/pokemon/pokemon.selectors';
   styleUrls: ['./pokemon-edit.component.scss'],
 })
 export class PokemonEditComponent implements OnInit, OnDestroy {
-  pokemon$ = this.store.pipe(select(selectPokemon));
+  pokemon$ = this.store.pipe(select(PokemonSelectors.getPokemon));
 
   public form: FormGroup;
   private subscription: Subscription = new Subscription();
@@ -26,7 +26,7 @@ export class PokemonEditComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       this.initForm();
-      this.store.dispatch(getPokemon({ id }));
+      this.store.dispatch(PokemonActions.loadPokemon({ id }));
       this.subscription.add(this.subscribeToPokemon());
     });
   }
@@ -44,7 +44,7 @@ export class PokemonEditComponent implements OnInit, OnDestroy {
   }
 
   subscribeToPokemon(): Subscription {
-    return this.pokemon$.pipe(filter((pokemon) => pokemon !== null)).subscribe((pokemon) => {
+    return this.pokemon$.pipe(filter((pokemon) => !!pokemon)).subscribe((pokemon) => {
       const { name, damage, createdAt } = pokemon;
       this.form.setValue({
         name,
@@ -55,15 +55,15 @@ export class PokemonEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(id: string): void {
-    const { value: updatedPokemon } = this.form;
-    this.store.dispatch(updatePokemon({ id, updatedPokemon }));
+    const updatedPokemon = {
+      _id: id,
+      ...this.form.value,
+    };
+
+    this.store.dispatch(PokemonActions.updatePokemon({ updatedPokemon }));
   }
 
   onCancel(id: string): void {
     this.router.navigate(['pokemons', id]);
-  }
-
-  canDeactivate(): boolean {
-    return confirm('Are you sure you want to quit edit mode?');
   }
 }

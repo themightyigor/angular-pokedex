@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { featureName } from 'src/app/store/user/user.reducer';
+import { featureName } from 'src/app/store/user/user.selectors';
 import { reducer } from 'src/app/store/user/user.reducer';
 import { UserEffects } from 'src/app/store/user/user.effects';
 

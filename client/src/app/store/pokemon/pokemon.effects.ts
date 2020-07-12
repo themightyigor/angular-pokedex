@@ -31,13 +31,13 @@ export class PokemonEffect {
     )
   );
 
-  getPokemon$ = createEffect(() =>
+  loadPokemon$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(PokemonActionTypes.getPokemon),
+      ofType(PokemonActionTypes.loadPokemon),
       mergeMap(({ id }) => {
         return this.pokemonService
           .getPokemonById(id)
-          .pipe(map((pokemon: Pokemon) => PokemonActionTypes.getPokemonSuccess({ pokemon })));
+          .pipe(map((pokemon: Pokemon) => PokemonActionTypes.loadPokemonSuccess({ pokemon })));
       })
     )
   );
@@ -51,15 +51,6 @@ export class PokemonEffect {
     )
   );
 
-  catchSelectedPokemon$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(PokemonActionTypes.catchSelectedPokemon),
-      mergeMap(({ id }) => {
-        return this.pokemonService.catchPokemon(id).pipe(map(() => PokemonActionTypes.catchSelectedPokemonSuccess()));
-      })
-    )
-  );
-
   releasePokemon$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PokemonActionTypes.releasePokemon),
@@ -69,28 +60,17 @@ export class PokemonEffect {
     )
   );
 
-  releaseSelectedPokemon$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(PokemonActionTypes.releaseSelectedPokemon),
-      mergeMap(({ id }) => {
-        return this.pokemonService
-          .releasePokemon(id)
-          .pipe(map(() => PokemonActionTypes.releaseSelectedPokemonSuccess()));
-      })
-    )
-  );
-
   updatePokemon$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PokemonActionTypes.updatePokemon),
-      tap(({ id }) => {
+      tap(({ updatedPokemon }) => {
         this.notifierService.notify('success', 'Success!');
-        this.router.navigate(['pokemons', id]);
+        this.router.navigate(['pokemons', updatedPokemon._id]);
       }),
-      mergeMap(({ id, updatedPokemon }) => {
+      mergeMap(({ updatedPokemon }) => {
         return this.pokemonService
-          .updatePokemon(id, updatedPokemon)
-          .pipe(map(() => PokemonActionTypes.updatePokemonSuccess({ id, updatedPokemon })));
+          .updatePokemon(updatedPokemon)
+          .pipe(map(() => PokemonActionTypes.updatePokemonSuccess({ updatedPokemon })));
       })
     )
   );

@@ -2,12 +2,12 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from 
 import { Pokemon } from '../../../../models/pokemon.model';
 
 @Component({
-  selector: 'app-pokemon-card',
-  templateUrl: './pokemon-card.component.html',
-  styleUrls: ['./pokemon-card.component.scss'],
+  selector: 'app-pokemon-card-item',
+  templateUrl: './pokemon-card-item.component.html',
+  styleUrls: ['./pokemon-card-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PokemonCardComponent {
+export class PokemonCardItemComponent {
   @Input() pokemon: Pokemon;
   @Output() togglePokemon: EventEmitter<Pokemon> = new EventEmitter();
 
