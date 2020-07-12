@@ -12,7 +12,6 @@ const localStrategy = new LocalStrategy(
     usernameField: 'name',
   },
   (name, password, done) => {
-    console.log(name);
     User.findOne({ name }, function (err, user) {
       if (err) {
         return done(err);

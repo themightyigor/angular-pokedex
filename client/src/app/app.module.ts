@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NotifierModule } from 'angular-notifier';
 
 import { AppComponent } from './app.component';
 
@@ -19,18 +18,8 @@ import { environment } from '../environments/environment';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     CoreModule,
-    NotifierModule.withConfig({
-      position: {
-        horizontal: {
-          position: 'right',
-        },
-        vertical: {
-          position: 'top',
-        },
-      },
-    }),
+    AppRoutingModule,
     AppStoreModule,
   ],
   providers: [

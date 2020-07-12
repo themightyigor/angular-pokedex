@@ -82,24 +82,11 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// @route    PATCH api/pokemons/catch/:id
-// @desc     Catch a pokemon
-router.patch('/catch/:id', async (req, res) => {
+// @route    PATCH api/pokemons/toggle/:id
+// @desc     Catch or release a pokemon
+router.patch('/toggle/:id', async (req, res) => {
   try {
-    const pokemon = await PokemonService.catchPokemon(req.params.id);
-
-    res.json(pokemon);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// @route    PATCH api/pokemons/release/:id
-// @desc     Release a pokemon
-router.patch('/release/:id', async (req, res) => {
-  try {
-    const pokemon = await PokemonService.releasePokemon(req.params.id);
+    const pokemon = await PokemonService.togglePokemon(req.params.id, req.body.isCaught);
 
     res.json(pokemon);
   } catch (err) {

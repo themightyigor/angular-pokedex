@@ -1,47 +1,43 @@
-import { Action, createReducer } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as PokemonActions from './pokemon.actions';
-import { Pokemon } from '../../models/pokemon.model';
-import { produceOn } from '../immer';
-
-export interface PokemonState {
-  pokemons: Pokemon[];
-  selectedPokemon: Pokemon | null;
-}
-
-const initialState: PokemonState = {
-  pokemons: [],
-  selectedPokemon: null,
-};
-
-export const featureName = 'pokemon';
+import { initialState, adapter } from './pokemon.state';
 
 export const reducer = createReducer(
   initialState,
-  produceOn(PokemonActions.loadPokemonsSuccess, (draft, action) => {
-    draft.pokemons = action.pokemons;
+  on(PokemonActions.loadPokemons, (state) => {
+    return { ...state, loading: true };
   }),
-  produceOn(PokemonActions.catchPokemonSuccess, (draft, action) => {
-    const pokemon = draft.pokemons.find((item) => item._id === action.id);
-    pokemon.isCaught = true;
+  on(PokemonActions.loadPokemonsSuccess, (state, { pokemons }) => {
+    return adapter.setAll(pokemons, { ...state, loading: false });
   }),
-  produceOn(PokemonActions.catchSelectedPokemonSuccess, (draft, action) => {
-    draft.selectedPokemon.isCaught = true;
+  on(PokemonActions.searchPokemon, (state) => {
+    return { ...state, loading: true };
   }),
-  produceOn(PokemonActions.releasePokemonSuccess, (draft, action) => {
-    const pokemon = draft.pokemons.find((item) => item._id === action.id);
-    pokemon.isCaught = false;
+  on(PokemonActions.searchPokemonSuccess, (state, { pokemons }) => {
+    return adapter.setAll(pokemons, { ...state, loading: false });
   }),
-  produceOn(PokemonActions.releaseSelectedPokemonSuccess, (draft, action) => {
-    draft.selectedPokemon.isCaught = false;
+  on(PokemonActions.loadPokemon, (state, { id }) => {
+    return { ...state, loading: true, selectedId: id };
   }),
-  produceOn(PokemonActions.searchPokemonSuccess, (draft, action) => {
-    draft.pokemons = action.pokemons;
+  on(PokemonActions.loadPokemonSuccess, (state, { pokemon }) => {
+    return adapter.upsertOne(pokemon, { ...state, loading: false });
   }),
-  produceOn(PokemonActions.getPokemonSuccess, (draft, action) => {
-    draft.selectedPokemon = action.pokemon;
+  on(PokemonActions.updatePokemon, (state) => {
+    return { ...state, loading: true };
   }),
-  produceOn(PokemonActions.updatePokemonSuccess, (draft, action) => {
-    const pokemonToUpdate = draft.pokemons.find((item) => item._id === action.id);
-    Object.assign(pokemonToUpdate, action.updatedPokemon);
+  on(PokemonActions.updatePokemonSuccess, (state, { updatedPokemon }) => {
+    return adapter.updateOne({ id: updatedPokemon._id, changes: updatedPokemon }, { ...state, loading: false });
+  }),
+  on(PokemonActions.catchPokemon, (state) => {
+    return { ...state, loading: true };
+  }),
+  on(PokemonActions.catchPokemonSuccess, (state, { id }) => {
+    return adapter.updateOne({ id, changes: { isCaught: true } }, { ...state, loading: false });
+  }),
+  on(PokemonActions.releasePokemon, (state) => {
+    return { ...state, loading: true };
+  }),
+  on(PokemonActions.releasePokemonSuccess, (state, { id }) => {
+    return adapter.updateOne({ id, changes: { isCaught: false } }, { ...state, loading: false });
   })
 );
