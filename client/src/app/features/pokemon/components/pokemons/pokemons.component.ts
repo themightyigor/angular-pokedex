@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 
 import { Pokemon } from 'src/app/models/pokemon.model';
-import { loadPokemons, searchPokemon, catchPokemon, releasePokemon } from 'src/app/store/pokemon/pokemon.actions';
-import { selectAllPokemons } from 'src/app/store/pokemon/pokemon.selectors';
+import * as PokemonActions from 'src/app/store/pokemon/pokemon.actions';
+import * as PokemonSelectors from 'src/app/store/pokemon/pokemon.selectors';
 
 @Component({
   selector: 'app-pokemons',
@@ -12,7 +12,7 @@ import { selectAllPokemons } from 'src/app/store/pokemon/pokemon.selectors';
   styleUrls: ['./pokemons.component.scss'],
 })
 export class PokemonsComponent implements OnInit {
-  pokemons$ = this.store.pipe(select(selectAllPokemons));
+  pokemons$ = this.store.pipe(select(PokemonSelectors.getPokemons));
 
   public isShowList = false;
 
@@ -22,10 +22,10 @@ export class PokemonsComponent implements OnInit {
     this.route.queryParamMap.subscribe((queryParams) => {
       const term = queryParams.get('pokemon');
       if (term) {
-        this.store.dispatch(searchPokemon({ term }));
+        this.store.dispatch(PokemonActions.searchPokemon({ term }));
         return;
       }
-      this.store.dispatch(loadPokemons());
+      this.store.dispatch(PokemonActions.loadPokemons());
     });
   }
 
@@ -34,12 +34,12 @@ export class PokemonsComponent implements OnInit {
   }
 
   public togglePokemon(pokemon: Pokemon): void {
-    const { _id, isCaught } = pokemon;
+    const { _id: id, isCaught } = pokemon;
     if (isCaught) {
-      this.store.dispatch(releasePokemon({ id: _id }));
+      this.store.dispatch(PokemonActions.releasePokemon({ id }));
       return;
     }
-    this.store.dispatch(catchPokemon({ id: _id }));
+    this.store.dispatch(PokemonActions.catchPokemon({ id }));
   }
 
   public search(term: string): void {

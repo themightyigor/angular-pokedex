@@ -21,16 +21,16 @@ export class PokemonService {
     return this.http.get<Pokemon[]>(url, { params });
   }
 
-  getPokemonById(id: string): Observable<any[] | Pokemon> {
+  getPokemonById(id: string): Observable<Pokemon> {
     const url = `${this.baseUrl}/pokemons/${id}`;
 
     return this.http.get<Pokemon>(url);
   }
 
-  updatePokemon(id: string, updatedPokemon: any): Observable<any> {
-    const url = `${this.baseUrl}/pokemons/update/${id}`;
+  updatePokemon(updatedPokemon: Partial<Pokemon>): Observable<any> {
+    const url = `${this.baseUrl}/pokemons/update/${updatedPokemon._id}`;
 
-    console.log(id, updatedPokemon);
+    console.log(updatedPokemon);
     return this.http.put(url, updatedPokemon);
   }
 
