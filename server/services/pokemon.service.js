@@ -34,18 +34,10 @@ function deletePokemon(pokemonId) {
   return Pokemon.findOneAndRemove({ _id: pokemonId });
 }
 
-function catchPokemon(pokemonId) {
+function togglePokemon(pokemonId, isCaught) {
   return Pokemon.findOneAndUpdate(
     { _id: pokemonId },
-    { isCaught: true },
-    { new: true }
-  );
-}
-
-function releasePokemon(pokemonId) {
-  return Pokemon.findOneAndUpdate(
-    { _id: pokemonId },
-    { isCaught: false },
+    { isCaught },
     { new: true }
   );
 }
@@ -62,7 +54,6 @@ module.exports = {
   getPokemonById,
   updatePokemon,
   deletePokemon,
-  catchPokemon,
+  togglePokemon,
   getCaptured,
-  releasePokemon,
 };

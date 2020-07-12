@@ -7,8 +7,8 @@ import { PokemonStoreModule } from './pokemon-store.module';
 import { HighlightDirective } from './directives/highlight/highlight.directive';
 import { PokemonsComponent } from './components/pokemons/pokemons.component';
 import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-details.component';
-import { PokemonCardComponent } from './components/pokemon-card/pokemon-card.component';
-import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
+import { PokemonCardItemComponent } from './components/pokemon-card-item/pokemon-card-item.component';
+import { PokemonListItemComponent } from './components/pokemon-list-item/pokemon-list-item.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { PokemonEditComponent } from './components/pokemon-edit/pokemon-edit.component';
 
@@ -17,8 +17,8 @@ import { PokemonEditComponent } from './components/pokemon-edit/pokemon-edit.com
     HighlightDirective,
     PokemonsComponent,
     PokemonDetailsComponent,
-    PokemonCardComponent,
-    PokemonListComponent,
+    PokemonCardItemComponent,
+    PokemonListItemComponent,
     SearchBarComponent,
     PokemonEditComponent,
   ],

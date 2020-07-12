@@ -19,8 +19,9 @@ import { environment } from '../environments/environment';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     CoreModule,
+    AppRoutingModule,
+    AppStoreModule,
     NotifierModule.withConfig({
       position: {
         horizontal: {
@@ -31,7 +32,6 @@ import { environment } from '../environments/environment';
         },
       },
     }),
-    AppStoreModule,
   ],
   providers: [
     { provide: 'API_URL', useValue: environment.apiUrl },

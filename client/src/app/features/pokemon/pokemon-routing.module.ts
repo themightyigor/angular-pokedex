@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { PokemonsComponent } from './components/pokemons/pokemons.component';
 import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-details.component';
 import { PokemonEditComponent } from './components/pokemon-edit/pokemon-edit.component';
-import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 
 const routes: Routes = [
   {
@@ -18,7 +17,6 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: PokemonEditComponent,
-    canDeactivate: [CanDeactivateGuard],
   },
 ];
 

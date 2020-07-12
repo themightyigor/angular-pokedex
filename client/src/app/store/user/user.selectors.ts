@@ -1,7 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { featureName, UserState, adapter } from './user.reducer';
+import { State, adapter } from './user.state';
 
-const getUserState = createFeatureSelector<UserState>(featureName);
+export const featureName = 'user';
+
+const getUserState = createFeatureSelector<State>(featureName);
+
 const { selectEntities } = adapter.getSelectors();
 
 export const getLogin = createSelector(getUserState, (state) => state.needAuth);

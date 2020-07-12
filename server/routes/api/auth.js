@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
       if (err) throw err;
       res.json({
         id: req.user._id,
-        name: req.user._name,
+        name: req.user.name,
         access_token: token,
         statusCode: 200,
       });
