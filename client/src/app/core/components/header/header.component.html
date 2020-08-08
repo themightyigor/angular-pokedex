@@ -1,17 +1,21 @@
-<header class="header">
-  <div class="header__container">
-    <nav class="nav">
-      <ul class="nav__list">
-        <li class="nav__item">
-          <a class="nav__link" routerLink="/">Home</a>
-        </li>
-        <li class="nav__item" *ngIf="authService.token.length === 0">
-          <a class="nav__link" href="/login">Login</a>
-        </li>
-        <li class="nav__item" *ngIf="authService.token.length > 0">
-          <a class="nav__link" href="/login" (click)="logout()">Logout</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+<header>
+  <mat-toolbar color="primary" class="expanded-toolbar">
+    <div>
+      <span>{{ title }}</span>
+      <button mat-button routerLink="/">
+        <mat-icon>view_module</mat-icon>
+        Pokedex
+      </button>
+    </div>
+    <div>
+      <button mat-button routerLink="/login" *ngIf="authService.token.length === 0">
+        <mat-icon>account_box</mat-icon>
+        Login
+      </button>
+      <button mat-button routerLink="/login" *ngIf="authService.token.length > 0" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        Logout
+      </button>
+    </div>
+  </mat-toolbar>
 </header>

@@ -14,7 +14,6 @@ export class UserEffects {
       ofType(UserActions.login),
       concatMap(({ user }) =>
         this.authService.login(user).pipe(
-          tap((result) => console.log(result)),
           map((result) => UserActions.loginSuccess({ user: result })),
           catchError((error) => of(UserActions.loginFailure({ error })))
         )

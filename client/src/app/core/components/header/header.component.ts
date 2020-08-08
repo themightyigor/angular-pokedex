@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  title = 'ngrx-pokedex';
+
   constructor(public authService: AuthService) {}
 
   ngOnInit(): void {}

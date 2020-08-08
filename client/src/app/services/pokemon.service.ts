@@ -27,7 +27,7 @@ export class PokemonService {
     return this.http.get<Pokemon>(url);
   }
 
-  updatePokemon(updatedPokemon: Partial<Pokemon>): Observable<any> {
+  updatePokemon(updatedPokemon: Pokemon): Observable<any> {
     const url = `${this.baseUrl}/pokemons/update/${updatedPokemon._id}`;
 
     return this.http.put(url, updatedPokemon);

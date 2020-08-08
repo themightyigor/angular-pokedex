@@ -1,20 +1,14 @@
 <section class="pokemons">
-  <button class="button pokemons__button" (click)="showList()">Change view</button>
-  <app-search-bar class="pokemons__search" (search)="search($event)"></app-search-bar>
-  <ul class="pokemon-cards" *ngIf="!isShowList">
+  <mat-form-field>
+    <input matInput placeholder="Search for a pokemon" #inputElement />
+  </mat-form-field>
+  <div class="pokemon-cards">
     <app-pokemon-card-item
       class="pokemon-cards__item"
       *ngFor="let pokemon of pokemons$ | async"
       [pokemon]="pokemon"
       (togglePokemon)="togglePokemon($event)"
+      (updatePokemon)="showEditDialog($event)"
     ></app-pokemon-card-item>
-  </ul>
-
-  <ul class="pokemon-list" *ngIf="isShowList">
-    <app-pokemon-list-item
-      *ngFor="let pokemon of pokemons$ | async"
-      [pokemon]="pokemon"
-      (togglePokemon)="togglePokemon($event)"
-    ></app-pokemon-list-item>
-  </ul>
+  </div>
 </section>

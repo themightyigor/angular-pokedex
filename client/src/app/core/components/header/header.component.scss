@@ -1,39 +1,19 @@
-.header {
-  &__container {
-    display: flex;
-    align-items: center;
-    height: 90px;
-    max-width: 1200px;
-    padding: 0 1rem;
-    margin: auto;
-  }
+.expanded-toolbar {
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nav {
-  &__list {
-    list-style: none;
-  }
-
-  &__item {
-    display: inline;
-  }
-
-  &__item + &__item {
-    margin-left: 2rem;
-  }
-
-  &__link {
-    display: inline-block;
-    padding: 1rem 0;
-    color: rgba(0, 0, 0, 0.6);
-    text-decoration: none;
-  }
+.title {
+  flex: 1 0 auto;
 }
 
-@media screen and (max-width: 1170px) {
-  .header {
-    &__container {
-      justify-content: center;
-    }
-  }
+.icon {
+  display: flex;
+  padding: 4px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
