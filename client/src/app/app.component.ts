@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/auth.service';
-import { Store } from '@ngrx/store';
+import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service'
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,9 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'pokedex';
+  title = 'ngrx-pokedex';
 
-  constructor(private store: Store, public authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   logout() {
     this.authService.logout();

@@ -1,16 +1,9 @@
 .pokemons {
-  &__button {
-    width: 100%;
-  }
+  margin-top: 1rem;
 
   &__search {
     display: flex;
     max-width: 500px;
-    margin-top: 1rem;
-  }
-
-  &__no-results {
-    margin-top: 1rem;
   }
 }
 
@@ -25,11 +18,8 @@
   }
 }
 
-.pokemon-list {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  list-style: none;
+mat-form-field {
+  width: 100%;
 }
 
 @media screen and (max-width: 1170px) {

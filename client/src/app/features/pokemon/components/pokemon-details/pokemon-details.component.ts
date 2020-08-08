@@ -32,4 +32,8 @@ export class PokemonDetailsComponent implements OnInit {
     }
     this.store.dispatch(PokemonActions.catchPokemon({ id }));
   }
+
+  showEditDialog(pokemon: Pokemon) {
+    this.store.dispatch(PokemonActions.showEditDialog({ pokemon }));
+  }
 }

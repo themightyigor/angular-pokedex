@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
+import { fromEvent, Subscription } from 'rxjs';
+import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { Pokemon } from 'src/app/models/pokemon.model';
 import * as PokemonActions from 'src/app/store/pokemon/pokemon.actions';
@@ -11,29 +12,36 @@ import * as PokemonSelectors from 'src/app/store/pokemon/pokemon.selectors';
   templateUrl: './pokemons.component.html',
   styleUrls: ['./pokemons.component.scss'],
 })
-export class PokemonsComponent implements OnInit {
+export class PokemonsComponent implements OnInit, OnDestroy {
   pokemons$ = this.store.pipe(select(PokemonSelectors.getPokemons));
+  searchSubscription: Subscription;
 
-  public isShowList = false;
+  @ViewChild('inputElement', { static: true }) inputElement: ElementRef;
 
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe((queryParams) => {
-      const term = queryParams.get('pokemon');
-      if (term) {
+    this.store.dispatch(PokemonActions.loadPokemons());
+    this.subscribeToSearch();
+  }
+
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
+  }
+
+  subscribeToSearch() {
+    this.searchSubscription = fromEvent<KeyboardEvent>(this.inputElement.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        map(() => this.inputElement.nativeElement.value)
+      )
+      .subscribe((term: string) => {
         this.store.dispatch(PokemonActions.searchPokemon({ term }));
-        return;
-      }
-      this.store.dispatch(PokemonActions.loadPokemons());
-    });
+      });
   }
 
-  public showList(): void {
-    this.isShowList = !this.isShowList;
-  }
-
-  public togglePokemon(pokemon: Pokemon): void {
+  togglePokemon(pokemon: Pokemon) {
     const { _id: id, isCaught } = pokemon;
     if (isCaught) {
       this.store.dispatch(PokemonActions.releasePokemon({ id }));
@@ -42,7 +50,7 @@ export class PokemonsComponent implements OnInit {
     this.store.dispatch(PokemonActions.catchPokemon({ id }));
   }
 
-  public search(term: string): void {
-    this.router.navigate([], { queryParams: term ? { pokemon: term } : null });
+  showEditDialog(pokemon: Pokemon) {
+    this.store.dispatch(PokemonActions.showEditDialog({ pokemon }));
   }
 }

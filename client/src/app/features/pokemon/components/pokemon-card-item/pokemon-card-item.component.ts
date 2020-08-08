@@ -9,9 +9,6 @@ import { Pokemon } from '../../../../models/pokemon.model';
 })
 export class PokemonCardItemComponent {
   @Input() pokemon: Pokemon;
-  @Output() togglePokemon: EventEmitter<Pokemon> = new EventEmitter();
-
-  public onTogglePokemon(pokemon: Pokemon): void {
-    this.togglePokemon.emit(pokemon);
-  }
+  @Output() togglePokemon = new EventEmitter<Pokemon>();
+  @Output() updatePokemon = new EventEmitter<Pokemon>();
 }

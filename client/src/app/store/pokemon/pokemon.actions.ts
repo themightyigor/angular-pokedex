@@ -1,29 +1,49 @@
 import { createAction, props } from '@ngrx/store';
 import { Pokemon } from '../../models/pokemon.model';
 
-export const loadPokemons = createAction('[Pokemon] Load Pokemons');
+export const loadPokemons = createAction('[Pokemon Page] Load Pokemons');
 
-export const loadPokemonsSuccess = createAction('[Pokemon] Load Pokemons Success', props<{ pokemons: Pokemon[] }>());
+export const loadPokemonsSuccess = createAction(
+  '[Pokemon API] Load Pokemons Success',
+  props<{ pokemons: Pokemon[] }>()
+);
 
-export const catchPokemon = createAction('[Pokemon] Catch Pokemon', props<{ id: string }>());
+export const loadPokemonsFailure = createAction('[Pokemon API] Load Pokemons Failure', props<{ error: any }>());
 
-export const catchPokemonSuccess = createAction('[Pokemon] Catch Pokemon Success', props<{ id: string }>());
+export const catchPokemon = createAction('[Pokemon Page] Catch Pokemon', props<{ id: string }>());
 
-export const releasePokemon = createAction('[Pokemon] Release Pokemon', props<{ id: string }>());
+export const catchPokemonSuccess = createAction('[Pokemon API] Catch Pokemon Success', props<{ id: string }>());
 
-export const releasePokemonSuccess = createAction('[Pokemon] Release Pokemon Success', props<{ id: string }>());
+export const catchPokemonFailure = createAction('[Pokemon API] Catch Pokemon Failure', props<{ error: any }>());
 
-export const searchPokemon = createAction('[Pokemon] Search Pokemon', props<{ term: string }>());
+export const releasePokemon = createAction('[Pokemon Page] Release Pokemon', props<{ id: string }>());
 
-export const searchPokemonSuccess = createAction('[Pokemon] Search Pokemon Success', props<{ pokemons: Pokemon[] }>());
+export const releasePokemonSuccess = createAction('[Pokemon API] Release Pokemon Success', props<{ id: string }>());
 
-export const loadPokemon = createAction('[Pokemon] Load Pokemon', props<{ id: string }>());
+export const releasePokemonFailure = createAction('[Pokemon API] Release Pokemon Failure', props<{ error: any }>());
 
-export const loadPokemonSuccess = createAction('[Pokemon] Load Pokemon Success', props<{ pokemon: Pokemon }>());
+export const searchPokemon = createAction('[Pokemon Page] Search Pokemon', props<{ term: string }>());
 
-export const updatePokemon = createAction('[Pokemon] Update Pokemon', props<{ updatedPokemon: Pokemon }>());
+export const searchPokemonSuccess = createAction(
+  '[Pokemon API] Search Pokemon Success',
+  props<{ pokemons: Pokemon[] }>()
+);
+
+export const searchPokemonFailure = createAction('[Pokemon API] Search Pokemon Failure', props<{ error: any }>());
+
+export const loadPokemon = createAction('[Pokemon Page] Load Pokemon', props<{ id: string }>());
+
+export const loadPokemonSuccess = createAction('[Pokemon API] Load Pokemon Success', props<{ pokemon: Pokemon }>());
+
+export const loadPokemonFailure = createAction('[Pokemon API] Load Pokemon Failure', props<{ error: any }>());
+
+export const updatePokemon = createAction('[Pokemon Page] Update Pokemon', props<{ updatedPokemon: Pokemon }>());
 
 export const updatePokemonSuccess = createAction(
-  '[Pokemon] Update Pokemon Success',
+  '[Pokemon API] Update Pokemon Success',
   props<{ updatedPokemon: Pokemon }>()
 );
+
+export const updatePokemonFailure = createAction('[Pokemon Page] Update Pokemon Failure', props<{ error: any }>());
+
+export const showEditDialog = createAction('[Pokemon Page] Show Edit Dialog', props<{ pokemon: Pokemon }>());

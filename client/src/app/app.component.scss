@@ -4,6 +4,26 @@
   min-height: 100vh;
 }
 
+.expanded-toolbar {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  flex: 1 0 auto;
+}
+
+.icon {
+  display: flex;
+  padding: 4px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 @media screen and (max-width: 1170px) {
   .container {
     width: 768px;
