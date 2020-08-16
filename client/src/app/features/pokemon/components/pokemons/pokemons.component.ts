@@ -42,8 +42,8 @@ export class PokemonsComponent implements OnInit, OnDestroy {
   }
 
   togglePokemon(pokemon: Pokemon) {
-    const { _id: id, isCaught } = pokemon;
-    if (isCaught) {
+    const { id, captured } = pokemon;
+    if (captured) {
       this.store.dispatch(PokemonActions.releasePokemon({ id }));
       return;
     }

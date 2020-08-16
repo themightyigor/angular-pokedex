@@ -1,26 +1,24 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
 import { Store } from '@ngrx/store';
+
+import { environment } from 'src/environments/environment';
+import { User } from '../models/user.model';
 import * as UserActions from '../store/user/user.actions';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private http: HttpClient,
-    @Inject('API_URL') private baseUrl: string,
-    private router: Router,
-    private store: Store
-  ) {}
+  private api: string = environment.apiUrl + '/auth';
+
+  constructor(private http: HttpClient, private router: Router, private store: Store) {}
 
   login(user: Partial<User>) {
-    const url = `${this.baseUrl}/auth`;
-
-    return this.http.post<User>(url, user).pipe(
+    return this.http.post<User>(`${this.api}/signIn`, user).pipe(
       mergeMap((user: User) => {
         this.token = user.access_token || '';
         this.router.navigate(['pokemons']);

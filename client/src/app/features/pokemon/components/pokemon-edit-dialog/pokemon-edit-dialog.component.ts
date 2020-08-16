@@ -39,10 +39,16 @@ export class PokemonEditDialogComponent implements OnInit {
   }
 
   save() {
-    const updatedPokemon = {
+    const name = this.form.get('name')?.value as string;
+    const damage = this.form.get('damage')?.value as number;
+    const createdAt = this.form.get('createdAt')?.value as Date;
+
+    const pokemon = {
       ...this.pokemon,
-      ...this.form.value,
+      name,
+      damage,
+      createdAt,
     };
-    this.store.dispatch(PokemonActions.updatePokemon({ updatedPokemon }));
+    this.store.dispatch(PokemonActions.updatePokemon({ pokemon }));
   }
 }

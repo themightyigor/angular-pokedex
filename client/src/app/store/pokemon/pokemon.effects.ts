@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of, asyncScheduler, EMPTY as empty } from 'rxjs';
-import { tap, map, concatMap, switchMap, catchError, debounceTime, skip, takeUntil } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { tap, map, concatMap, switchMap, catchError } from 'rxjs/operators';
 import * as PokemonActionTypes from './pokemon.actions';
 import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon.model';
@@ -54,7 +54,7 @@ export class PokemonEffect {
     this.actions$.pipe(
       ofType(PokemonActionTypes.catchPokemon),
       concatMap(({ id }) => {
-        return this.pokemonService.togglePokemon(id, { isCaught: true }).pipe(
+        return this.pokemonService.togglePokemonStatus(id).pipe(
           map(() => PokemonActionTypes.catchPokemonSuccess({ id })),
           catchError((error) => of(PokemonActionTypes.catchPokemonFailure({ error })))
         );
@@ -66,7 +66,7 @@ export class PokemonEffect {
     this.actions$.pipe(
       ofType(PokemonActionTypes.releasePokemon),
       concatMap(({ id }) => {
-        return this.pokemonService.togglePokemon(id, { isCaught: false }).pipe(
+        return this.pokemonService.togglePokemonStatus(id).pipe(
           map(() => PokemonActionTypes.releasePokemonSuccess({ id })),
           catchError((error) => of(PokemonActionTypes.releasePokemonFailure({ error })))
         );
@@ -77,9 +77,9 @@ export class PokemonEffect {
   updatePokemon$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PokemonActionTypes.updatePokemon),
-      concatMap(({ updatedPokemon }) => {
-        return this.pokemonService.updatePokemon(updatedPokemon).pipe(
-          map(() => PokemonActionTypes.updatePokemonSuccess({ updatedPokemon })),
+      concatMap(({ pokemon }) => {
+        return this.pokemonService.updatePokemon(pokemon).pipe(
+          map(() => PokemonActionTypes.updatePokemonSuccess({ pokemon })),
           catchError((error) => of(PokemonActionTypes.updatePokemonFailure({ error })))
         );
       })

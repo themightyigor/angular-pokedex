@@ -1,12 +1,12 @@
 <mat-card *ngIf="pokemon$ | async as pokemon">
   <mat-card-content>
     <h2>{{ pokemon.name }}</h2>
-    <img class="pokemon-image" src="/assets/images/{{ pokemon._id }}.png" [alt]="pokemon.name" />
-    <p>ID: {{ pokemon._id }}</p>
+    <img class="pokemon-image" src="/assets/images/{{ pokemon.id }}.png" [alt]="pokemon.name" />
+    <p>ID: {{ pokemon.id }}</p>
     <p>Damage: {{ pokemon.damage }}</p>
     <p>Created At: {{ pokemon.createdAt | date: 'shortDate' }}</p>
     <button mat-raised-button color="primary" (click)="togglePokemon(pokemon)">
-      {{ pokemon.isCaught ? 'Release' : 'Catch' }}
+      {{ pokemon.captured ? 'Release' : 'Catch' }}
     </button>
     <button class="edit-button" mat-raised-button (click)="showEditDialog(pokemon)">
       Edit

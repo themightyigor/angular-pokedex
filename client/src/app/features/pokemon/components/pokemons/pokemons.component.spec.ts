@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { NotifierService, NotifierModule } from 'angular-notifier';
 
 import { PokemonsComponent } from './pokemons.component';
 import { loadPokemonsSuccess } from 'src/app/store/pokemon/pokemon.actions';
@@ -19,21 +18,25 @@ describe('PokemonsComponent', () => {
   let activatedRoute: ActivatedRoute;
   let router: Router;
 
+  const mockDate = new Date();
+
   const mockPokemons: Pokemon[] = [
-    { name: 'bulbasaur', _id: '1', damage: 36, isCaught: false, createdAt: '2020-06-10T00:00:00.000+00:00' },
+    { name: 'bulbasaur', id: '1', damage: 36, captured: false, createdAt: mockDate, updatedAt: mockDate },
     {
       name: 'ivysaur',
-      _id: '2',
+      id: '2',
       damage: 46,
-      isCaught: false,
-      createdAt: '2020-06-10T00:00:00.000+00:00',
+      captured: false,
+      createdAt: mockDate,
+      updatedAt: mockDate,
     },
     {
       name: 'venusaur',
-      _id: '3',
+      id: '3',
       damage: 10,
-      isCaught: false,
-      createdAt: '2020-06-10T00:00:00.000+00:00',
+      captured: false,
+      createdAt: mockDate,
+      updatedAt: mockDate,
     },
   ];
 
@@ -52,9 +55,8 @@ describe('PokemonsComponent', () => {
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
         PokemonStoreModule,
-        NotifierModule,
       ],
-      providers: [NotifierService, { provide: 'API_URL', useValue: '123' }],
+      providers: [{ provide: 'API_URL', useValue: '123' }],
     }).compileComponents();
   }));
 

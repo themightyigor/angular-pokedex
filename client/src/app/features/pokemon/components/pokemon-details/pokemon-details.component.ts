@@ -25,8 +25,8 @@ export class PokemonDetailsComponent implements OnInit {
   }
 
   public togglePokemon(pokemon: Pokemon): void {
-    const { _id: id, isCaught } = pokemon;
-    if (isCaught) {
+    const { id, captured } = pokemon;
+    if (captured) {
       this.store.dispatch(PokemonActions.releasePokemon({ id }));
       return;
     }

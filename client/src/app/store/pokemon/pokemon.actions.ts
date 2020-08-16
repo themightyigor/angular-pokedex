@@ -37,11 +37,11 @@ export const loadPokemonSuccess = createAction('[Pokemon API] Load Pokemon Succe
 
 export const loadPokemonFailure = createAction('[Pokemon API] Load Pokemon Failure', props<{ error: any }>());
 
-export const updatePokemon = createAction('[Pokemon Page] Update Pokemon', props<{ updatedPokemon: Pokemon }>());
+export const updatePokemon = createAction('[Pokemon Page] Update Pokemon', props<{ pokemon: Pokemon }>());
 
 export const updatePokemonSuccess = createAction(
   '[Pokemon API] Update Pokemon Success',
-  props<{ updatedPokemon: Pokemon }>()
+  props<{ pokemon: Pokemon }>()
 );
 
 export const updatePokemonFailure = createAction('[Pokemon Page] Update Pokemon Failure', props<{ error: any }>());

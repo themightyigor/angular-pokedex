@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   async ngOnInit() {
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
@@ -29,10 +29,10 @@ export class LoginComponent implements OnInit {
     this.loginInvalid = false;
     if (this.form.valid) {
       try {
-        const name: string = this.form.get('name')?.value;
+        const username: string = this.form.get('username')?.value;
         const password: string = this.form.get('password')?.value;
         const user: Partial<User> = {
-          name,
+          username,
           password,
         };
         this.store.dispatch(UserActions.login({ user }));

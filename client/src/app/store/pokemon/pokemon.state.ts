@@ -9,9 +9,7 @@ export interface State extends EntityState<Pokemon> {
   error?: any;
 }
 
-export const adapter = createEntityAdapter<Pokemon>({
-  selectId: (pokemon: Pokemon) => pokemon._id,
-});
+export const adapter = createEntityAdapter<Pokemon>();
 
 export const initialState: State = adapter.getInitialState({
   loading: false,

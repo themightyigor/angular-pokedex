@@ -34,8 +34,8 @@ export const reducer = createReducer(
   on(PokemonActions.updatePokemon, (state) => {
     return { ...state, loading: true };
   }),
-  on(PokemonActions.updatePokemonSuccess, (state, { updatedPokemon }) => {
-    return adapter.updateOne({ id: updatedPokemon._id, changes: updatedPokemon }, { ...state, loading: false });
+  on(PokemonActions.updatePokemonSuccess, (state, { pokemon }) => {
+    return adapter.updateOne({ id: pokemon.id, changes: pokemon }, { ...state, loading: false });
   }),
   on(PokemonActions.updatePokemonFailure, (state, { error }) => {
     return { ...state, loading: false, error };
@@ -44,7 +44,7 @@ export const reducer = createReducer(
     return { ...state, loading: true };
   }),
   on(PokemonActions.catchPokemonSuccess, (state, { id }) => {
-    return adapter.updateOne({ id, changes: { isCaught: true } }, { ...state, loading: false });
+    return adapter.updateOne({ id, changes: { captured: true } }, { ...state, loading: false });
   }),
   on(PokemonActions.catchPokemonFailure, (state, { error }) => {
     return { ...state, loading: false, error };
@@ -53,7 +53,7 @@ export const reducer = createReducer(
     return { ...state, loading: true };
   }),
   on(PokemonActions.releasePokemonSuccess, (state, { id }) => {
-    return adapter.updateOne({ id, changes: { isCaught: false } }, { ...state, loading: false });
+    return adapter.updateOne({ id, changes: { captured: false } }, { ...state, loading: false });
   }),
   on(PokemonActions.releasePokemonFailure, (state, { error }) => {
     return { ...state, loading: false, error };

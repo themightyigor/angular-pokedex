@@ -1,7 +1,8 @@
 export interface Pokemon {
-  _id: string;
+  id: string;
   name: string;
   damage: number;
-  isCaught: boolean;
-  createdAt: string;
+  captured: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

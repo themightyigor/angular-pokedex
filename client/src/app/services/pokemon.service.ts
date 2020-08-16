@@ -27,15 +27,15 @@ export class PokemonService {
     return this.http.get<Pokemon>(url);
   }
 
-  updatePokemon(updatedPokemon: Pokemon): Observable<any> {
-    const url = `${this.baseUrl}/pokemons/update/${updatedPokemon._id}`;
+  updatePokemon(pokemon: Partial<Pokemon>): Observable<any> {
+    const url = `${this.baseUrl}/pokemons/${pokemon.id}`;
 
-    return this.http.put(url, updatedPokemon);
+    return this.http.put(url, pokemon);
   }
 
-  togglePokemon(id: string, isCaught: { isCaught: boolean }): Observable<any> {
-    const url = `${this.baseUrl}/pokemons/toggle/${id}`;
+  togglePokemonStatus(id: string): Observable<any> {
+    const url = `${this.baseUrl}/pokemons/${id}`;
 
-    return this.http.patch(url, isCaught);
+    return this.http.patch(url, {});
   }
 }
